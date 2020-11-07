@@ -9,7 +9,7 @@
 - name: Create rule for XRDP incoming
   community.general.ufw:
     to_port: '3389'
-    direction: incoming
+    direction: "in"
     rule: allow
 
 - name: Enable UFW on the system
