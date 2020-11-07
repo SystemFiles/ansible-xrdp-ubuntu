@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Checkout code from master
         uses: actions/checkout@v2
-        with:
-          ref: master
       - name: Docker setup
         uses: docker-practice/actions-setup-docker@master
         with:
