@@ -4,4 +4,4 @@
 # Options: 
 # 1. gnome
 # 2. xfce
-desktop_environment: xfce
+desktop_environment: gnome
