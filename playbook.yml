@@ -3,5 +3,11 @@
 - hosts: 127.0.0.1
   connection: local
   become: true
+  vars:
+    xrdp_users:
+      name: ben
+      groups:
+        - wheel
+      has_home: true
   roles:
     - ansible-xrdp-ubuntu
