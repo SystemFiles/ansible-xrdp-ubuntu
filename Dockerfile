@@ -6,7 +6,7 @@ RUN mkdir -p /ansible-plays/
 WORKDIR /
 COPY ./.github/test-script.sh .
 COPY ./playbook.yml ./ansible-plays/
-COPY ./ansible-dns-server/ /etc/ansible/roles/ansible-dns-server/
+COPY . /etc/ansible/roles/ansible-xrdp-ubuntu/
 
 # Run the test
 ENTRYPOINT [ "./test-script.sh" ]
