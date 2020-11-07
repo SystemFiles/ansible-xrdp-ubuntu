@@ -26,6 +26,26 @@
 
 This role will allow you to configure xrdp from scratch on your Ubuntu 20.04+ server/vm.
 
+## 👷‍♂️ Other prerequisites
+
+You will need to install the ansible community.general collection using `ansible-galaxy`
+
+```bash
+
+ansible-galaxy collection install community.general
+
+```
+
+## 🚨 Required vars
+
+- `xrdp_users` : Specifies a `list` of user objects for XRDP
+
+> Has the following variables:
+
+> - name: username of this user 
+> - groups: list of groups this user is a part of...(note: add 'wheel' for sudo user)
+> - has_home: create a home directory for the user (true or false)
+
 ## 👷‍♂️ Authors <a name = "authors" >
 
 - [Ben Sykes (SystemFiles)](https://sykesdev.ca/)

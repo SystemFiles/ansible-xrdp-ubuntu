@@ -1,0 +1,8 @@
+galaxy_info:
+  author: Benjamin Sykes (SystemFiles)
+  description: Install and configure XRDP on Ubuntu with xfce or gnome
+  company: Sykes Dev
+  license: Apache-2.0
+  min_ansible_version: 2.5
+  galaxy_tags: []
+dependencies: []

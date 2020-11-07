@@ -1,0 +1,22 @@
+name: test-local
+
+on: push
+
+jobs:
+  test-local:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code from master
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Docker setup
+        uses: docker-practice/actions-setup-docker@master
+        with:
+          docker_channel: stable
+      - name: Build test container image
+        run: |
+          docker build -t ansible-dev-local:latest -f ./Dockerfile ./
+      - name: Run the test on docker container
+        run: |
+          docker run -t ansible-dev-local:latest

@@ -1,0 +1,27 @@
+---
+# Install XRDP on Ubuntu 20.04
+
+- name: Make sure all packages are up-to-date
+  apt:
+    name: '*'
+    state: latest
+- name: Verify that we have UFW installed
+  apt:
+    name: ufw
+    state: present
+- name: (GNOME) Install desktop client
+  apt:
+    name: "ubuntu-desktop"
+    state: present
+  when: desktop_environment == "gnome"
+- name: (XFCE) Install desktop client
+  apt:
+    name: "xubuntu-desktop"
+    state: present
+  when: desktop_environment == "xfce"
+- name: Include XRDP setup
+  include_tasks: "xrdp.yml"
+  when: desktop_environment == "gnome" or desktop_environment == "xfce"
+- name: Include firewall config
+  include_tasks: "firewall.yml"
+  when: desktop_environment == "gnome" or desktop_environment == "xfce"

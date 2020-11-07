@@ -1,0 +1,6 @@
+---
+# tasks file for ansible-xrdp-ubuntu
+
+- name: Include Ubuntu tasks
+  include_tasks: "ubuntu.yml"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Ubuntu'

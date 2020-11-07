@@ -1,0 +1,27 @@
+---
+# Create users based on config
+
+- name: Make sure we have a 'wheel' group
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Create users based on vars
+  user:
+    name: "{{ item.name }}"
+    groups: 
+      - "{{ item.groups }}"
+      - ssl-cert
+    append: yes
+    state: present
+    create_home: "{{ item.has_home }}"
+    password: "defaultpassword"
+  loop: "{{ xrdp_users |list }}"

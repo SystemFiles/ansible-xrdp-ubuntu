@@ -1,0 +1,21 @@
+---
+# Configure the firewall for XRDP (so you can connect)
+
+- name: Ensure OpenSSH is already allowed on server (so we don't get locked out)
+  community.general.ufw:
+    to_port: '22'
+    rule: allow
+
+- name: Create rule for XRDP incoming
+  community.general.ufw:
+    to_port: '3389'
+    direction: incoming
+    rule: allow
+
+- name: Enable UFW on the system
+  community.general.ufw:
+    state: enabled
+
+- name: Reload UFW
+  community.general.ufw:
+    state: reloaded

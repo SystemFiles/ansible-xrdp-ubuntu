@@ -1,0 +1,7 @@
+---
+# defaults file for ansible-xrdp-ubuntu
+
+# Options: 
+# 1. gnome
+# 2. xfce
+desktop_environment: xfce

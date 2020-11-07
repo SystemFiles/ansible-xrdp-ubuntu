@@ -1,0 +1,18 @@
+---
+# Specific XRDP instructions
+
+- name: Install XRDP
+  apt:
+    name: xrdp
+    state: present
+- name: Confirm XRDP is running and enabled
+  systemd:
+    name: xrdp
+    state: started
+    enabled: true
+- name: Add XRDP users
+  include_tasks: "users.yml"
+- name: Restart the xrdp service
+  systemd:
+    name: xrdp
+    state: restarted
