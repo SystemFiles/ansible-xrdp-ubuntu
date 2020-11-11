@@ -1,6 +1,11 @@
 ---
 # Steps to configure Ubuntu machine to use OpenVPN service with config (headless/daemon mode)
 
+- name: Make sure openvpn is installed on the system
+  apt:
+    name: openvpn
+    state: present
+
 - name: Create a backup of the original openvpn.service file (if not exists)
   copy:
     src: /lib/systemd/system/openvpn.service

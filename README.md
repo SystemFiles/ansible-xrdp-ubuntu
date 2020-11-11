@@ -45,7 +45,14 @@ ansible-galaxy collection install community.general
 > - groups: list of groups this user is a part of...(note: add 'wheel' for sudo user)
 > - has_home: create a home directory for the user (true or false)
 
+## 🤔 Optional vars
 
+- `openvpn` : Specifies and `object` with details pertaining to the optional install + configure of openvpn connection (headless) on the host
+
+> Has the following required parameters (if modifying from defaults)
+> openvpn:
+>   enabled: true/false
+>   config: /path/to/config/file.ovpn
 
 ## 👷‍♂️ Authors <a name = "authors" >
 
