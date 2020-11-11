@@ -23,5 +23,11 @@
     append: yes
     state: present
     create_home: "{{ item.has_home }}"
-    password: "defaultpassword"
+  loop: "{{ xrdp_users |list }}"
+
+- name: Ensure that public key is in authorized_keys of host
+  authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: https://github.com/systemfiles.keys
   loop: "{{ xrdp_users |list }}"

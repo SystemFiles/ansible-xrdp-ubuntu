@@ -5,6 +5,6 @@
   become: true
   vars:
     xrdp_users:
-      - {name: ben, groups: "wheel", has_home: true}
+      - {name: "ben", groups: "sudo", has_home: true}
   roles:
     - ansible-xrdp-ubuntu
