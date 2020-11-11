@@ -37,7 +37,7 @@ ansible-galaxy collection install community.general
 
 ## 🚨 Required vars
 
-- `xrdp_users` : Specifies a `list` of user objects for XRDP
+- `xrdp_users` : Specifies a `list` of user `objects` for users that should be configured for use with XRDP
 
 > Has the following variables:
 
