@@ -5,6 +5,7 @@
   copy:
     src: /lib/systemd/system/openvpn.service
     dest: /lib/systemd/system/openvpn.service.bak
+    force: false
 
 - name: Template openvpn.service for headless mode
   template:

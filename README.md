@@ -45,6 +45,8 @@ ansible-galaxy collection install community.general
 > - groups: list of groups this user is a part of...(note: add 'wheel' for sudo user)
 > - has_home: create a home directory for the user (true or false)
 
+
+
 ## 👷‍♂️ Authors <a name = "authors" >
 
 - [Ben Sykes (SystemFiles)](https://sykesdev.ca/)
