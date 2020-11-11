@@ -25,9 +25,9 @@
 
 This role will allow you to configure xrdp from scratch on your Ubuntu 20.04+ server/vm.
 
-## 👷‍♂️ Other prerequisites
+## 👷‍♂️ Prerequisites
 
-You will need to install the ansible community.general collection using `ansible-galaxy`
+You will need to install the ansible `community.general` collection using `ansible-galaxy`
 
 ```bash
 
@@ -49,10 +49,15 @@ ansible-galaxy collection install community.general
 
 - `openvpn` : Specifies and `object` with details pertaining to the optional install + configure of openvpn connection (headless) on the host
 
-> Has the following required parameters (if modifying from defaults)
-> openvpn:
->   enabled: true/false
->   config: /path/to/config/file.ovpn
+Has the following required parameters (if modifying from defaults)
+
+``` yml
+
+openvpn:
+  enabled: true/false
+  config: /path/to/config/file.ovpn
+
+```
 
 ## 👷‍♂️ Authors <a name = "authors" >
 
