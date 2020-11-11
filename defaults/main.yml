@@ -5,3 +5,6 @@
 # 1. gnome
 # 2. xfce
 desktop_environment: gnome
+openvpn:
+  enabled: true
+  config: /home/ben/ben-openvpn.ovpn

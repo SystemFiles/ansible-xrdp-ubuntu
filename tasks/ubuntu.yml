@@ -25,3 +25,6 @@
 - name: Include firewall config
   include_tasks: "firewall.yml"
   when: desktop_environment == "gnome" or desktop_environment == "xfce"
+- name: Enable OpenVPN service (systemd) on host
+  include_tasks: "openvpn.yml"
+  when: openvpn.enabled is defined and openvpn.enabled == true
