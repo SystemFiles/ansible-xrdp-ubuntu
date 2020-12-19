@@ -49,13 +49,37 @@ ansible-galaxy collection install community.general
 
 - `openvpn` : Specifies and `object` with details pertaining to the optional install + configure of openvpn connection (headless) on the host
 
-Has the following required parameters (if modifying from defaults)
+Has the following required parameters
 
 ``` yml
 
 openvpn:
-  enabled: true/false
+  enabled: true
   config: /path/to/config/file.ovpn
+
+```
+
+> Add this to your playbook as vars
+
+## 🛠 Example Playbook
+
+Below is an example using Torguard and defaults
+
+```yml
+
+---
+# Playbook.yml
+
+- hosts: all
+  become: true
+  vars:
+    xrdp_users:
+      - {name: "ben", groups: "sudo", has_home: true}
+    torguard:
+      enabled: true
+      version: latest
+  roles:
+    - ansible-xrdp-ubuntu
 
 ```
 

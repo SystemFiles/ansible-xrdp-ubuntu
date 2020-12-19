@@ -8,3 +8,6 @@ desktop_environment: gnome
 openvpn:
   enabled: false
   config: /home/ben/ben-openvpn.ovpn
+torguard:
+  enabled: false
+  version: latest

@@ -28,3 +28,6 @@
 - name: Enable OpenVPN service (systemd) on host
   include_tasks: "openvpn.yml"
   when: openvpn.enabled is defined and openvpn.enabled == true
+- name: Install and Enable Torguard on host
+  include_tasks: "torguard.yml"
+  when: torguard.enabled is defined and torguard.enabled == true
