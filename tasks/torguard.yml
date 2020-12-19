@@ -5,6 +5,11 @@
 - name: Download torguard package
   apt:
     deb: https://torguard.net/downloads/torguard-{{ torguard.version }}-amd64.deb
+- name: Create config directory (if not exists)
+  file:
+    path: /home/{{ item.name }}/.config/VPNetworkLLC
+    state: directory
+    mode: '0755'
 - name: Install recommended config
   vars:
     username: "{{ item.name }}"

@@ -74,6 +74,7 @@ torguard:
 ```
 
 > Add this to your playbook as vars
+> **NOTE**: Also, due to the nature of the torguard client, you will unfortunatly have to login, run, and then configure torguard manually on your own.
 
 ## 🛠 Example Playbook
 

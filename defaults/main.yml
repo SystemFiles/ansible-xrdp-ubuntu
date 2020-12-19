@@ -5,6 +5,7 @@
 # 1. gnome
 # 2. xfce
 desktop_environment: gnome
+gnome_disable_lock: true
 openvpn:
   enabled: false
   config: /home/ben/ben-openvpn.ovpn

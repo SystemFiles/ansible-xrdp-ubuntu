@@ -22,6 +22,9 @@
 - name: Include XRDP setup
   include_tasks: "xrdp.yml"
   when: desktop_environment == "gnome" or desktop_environment == "xfce"
+- name: (GNOME) Disable Screen Lock (infinite)
+  shell: gsettings set org.gnome.desktop.lockdown disable-lock-screen 'true'
+  when: desktop_environment == "gnome" and gnome_disable_lock == true
 - name: Include firewall config
   include_tasks: "firewall.yml"
   when: desktop_environment == "gnome" or desktop_environment == "xfce"
