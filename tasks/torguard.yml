@@ -5,17 +5,3 @@
 - name: Download torguard package
   apt:
     deb: https://torguard.net/downloads/torguard-{{ torguard.version }}-amd64.deb
-- name: Create config directory (if not exists)
-  file:
-    path: /home/{{ item.name }}/.config/VPNetworkLLC
-    state: directory
-    mode: '0755'
-  loop: "{{ xrdp_users |list }}"
-- name: Install recommended config
-  vars:
-    username: "{{ item.name }}"
-  template:
-    src: "{{ role_path }}/templates/TorGuard.conf.j2"
-    dest: "/home/{{ item.name }}/.config/VPNetworkLLC/TorGuard.conf"
-    force: true
-  loop: "{{ xrdp_users |list }}"
