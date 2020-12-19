@@ -12,4 +12,4 @@
     src: "{{ role_path }}/templates/TorGuard.conf.j2"
     dest: "/home/{{ item.name }}/.config/VPNetworkLLC/TorGuard.conf"
     force: true
-  loop: "{{ xrdp_users ||list }}"
+  loop: "{{ xrdp_users |list }}"

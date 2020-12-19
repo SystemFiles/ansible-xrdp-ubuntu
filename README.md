@@ -47,7 +47,7 @@ ansible-galaxy collection install community.general
 
 ## 🤔 Optional vars
 
-- `openvpn` : Specifies and `object` with details pertaining to the optional install + configure of openvpn connection (headless) on the host
+- `openvpn` : Specifies an `object` with details pertaining to the optional install + configure of openvpn connection (headless) on the host
 
 Has the following required parameters
 
@@ -56,6 +56,20 @@ Has the following required parameters
 openvpn:
   enabled: true
   config: /path/to/config/file.ovpn
+
+```
+
+> Add this to your playbook as vars
+
+- `torguard` : Specifies an `object` that contains details about optional install and configuration of the TorGuard VPN client (GUI)
+
+Config object should look like this:
+
+``` yml
+
+torguard:
+      enabled: true
+      version: latest
 
 ```
 
