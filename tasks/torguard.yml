@@ -1,0 +1,7 @@
+---
+# Install and configure TorGuard on host machine
+# NOTE: The user will still have to log into the Gnome environment to connected (since torguard requires a login)
+
+- name: Download torguard package
+  apt:
+    deb: https://torguard.net/downloads/torguard-{{ torguard.version }}-amd64.deb

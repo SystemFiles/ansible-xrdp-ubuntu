@@ -22,9 +22,15 @@
 - name: Include XRDP setup
   include_tasks: "xrdp.yml"
   when: desktop_environment == "gnome" or desktop_environment == "xfce"
+- name: (GNOME) Disable Screen Lock (infinite)
+  shell: gsettings set org.gnome.desktop.lockdown disable-lock-screen 'true'
+  when: desktop_environment == "gnome" and gnome_disable_lock == true
 - name: Include firewall config
   include_tasks: "firewall.yml"
   when: desktop_environment == "gnome" or desktop_environment == "xfce"
 - name: Enable OpenVPN service (systemd) on host
   include_tasks: "openvpn.yml"
   when: openvpn.enabled is defined and openvpn.enabled == true
+- name: Install and Enable Torguard on host
+  include_tasks: "torguard.yml"
+  when: torguard.enabled is defined and torguard.enabled == true

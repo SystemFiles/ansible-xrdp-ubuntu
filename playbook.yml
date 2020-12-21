@@ -6,5 +6,8 @@
   vars:
     xrdp_users:
       - {name: "ben", groups: "sudo", has_home: true}
+    torguard:
+      enabled: true
+      version: latest
   roles:
     - ansible-xrdp-ubuntu
