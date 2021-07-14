@@ -1,18 +1,55 @@
 ---
 # Specific XRDP instructions
 
-- name: Install XRDP
-  apt:
+- name: XRDP | 1.0 | Ensure the XRDP client is installed
+  ansible.builtin.apt:
     name: xrdp
     state: present
-- name: Confirm XRDP is running and enabled
-  systemd:
+
+- name: XRDP | 2.0 | Ensure XRDP is started and enabled
+  ansible.builtin.systemd:
     name: xrdp
     state: started
     enabled: true
-- name: Add XRDP users
-  include_tasks: "users.yml"
-- name: Restart the xrdp service
-  systemd:
-    name: xrdp
-    state: restarted
+
+- name: XRDP | 3.0 | Ensure Screen Lock is disabled on Gnome
+  ansible.builtin.command: gsettings set org.gnome.desktop.lockdown disable-lock-screen 'true'
+  when: xrdp.environment == "gnome" and xrdp.disable_screen_lock
+
+- name: XRDP | 4.0 | Ensure that port is set as configured
+  ansible.builtin.lineinfile:
+    state: present
+    dest: /etc/xrdp/xrdp.ini
+    regexp: '^(;|#)?port'
+    line: 'port={{ xrdp.port }}'
+
+- name: XRDP | 5.0 | Ensure that enhanced RDP security is used
+  ansible.builtin.lineinfile:
+    state: present
+    dest: /etc/xrdp/xrdp.ini
+    regexp: '^(;|#)?security_layer'
+    line: 'security_layer=tls'
+
+- name: XRDP | 6.0 | Ensure that crypt_level is set to 'high'
+  ansible.builtin.lineinfile:
+    state: present
+    dest: /etc/xrdp/xrdp.ini
+    regexp: '^(;|#)?crypt_level'
+    line: 'crypt_level=high'
+
+- name: XRDP | 7.0 | Ensure that ssl_protocols is set to TLS 1.2 or better
+  ansible.builtin.lineinfile:
+    state: present
+    dest: /etc/xrdp/xrdp.ini
+    regexp: '^(;|#)?ssl_protocols'
+    line: 'ssl_protocols=TLSv1.2, TLSv1.3'
+
+- name: XRDP | 8.0 | Ensure XRDP Logging is enabled and set to INFO
+  ansible.builtin.lineinfile:
+    state: present
+    dest: /etc/xrdp/xrdp.ini
+    regexp: '^(;|#)?{{ item.key }}'
+    line: '{{ item.line }}'
+  loop:
+    - { key: 'LogLevel', line: 'LogLevel=INFO' }
+    - { key: 'SyslogLevel', line: 'LogLevel=INFO' }

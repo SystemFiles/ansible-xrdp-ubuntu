@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=250px src="/images/ansible.png" alt="Ansible Project"></a>
+ <img width=200px height=250px src=".github/docs/images/ansible.png" alt="Ansible Project"></a>
 </p>
 
 <h3 align="center">Ansible XRDP | Ubuntu 20.04</h3>

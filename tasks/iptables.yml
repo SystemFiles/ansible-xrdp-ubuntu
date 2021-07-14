@@ -1,0 +1,31 @@
+---
+# Configures the firewall by directly motifying IPTables
+
+- name: IPTABLES | 1.0 | Ensure a backup of existing IPtables rules exists
+  ansible.builtin.shell: 'iptables-save > {{ firewall.iptables_backup }}'
+  changed_when: false
+  when: firewall.iptables_backup is defined and firewall.iptables_backup |length > 0
+
+- name: IPTABLES | 2.0 | Ensure IPTables logging is set to INFO
+  ansible.builtin.iptables:
+    log_level: info
+
+- name: IPTABLES | 3.0 | Ensure XRDP port is open
+  ansible.builtin.iptables:
+    state: present
+    chain: INPUT
+    policy: ACCEPT
+    protocol: '{{ item }}'
+    destination_port: '{{ xrdp.port }}'
+  loop:
+    - tcp
+    - udp
+
+- name: IPTABLES | 4.0 | Ensure SSH access remails after XRDP installation
+  ansible.builtin.iptables:
+    state: present
+    chain: INPUT
+    policy: ACCEPT
+    protocol: tcp
+    destination_port: '{{ firewall.ssh_port }}'
+  when: firewall.ssh and firewall.ssh_port is defined

@@ -1,5 +1,5 @@
 ---
-# defaults file for ansible-xrdp-ubuntu
+# Configuration for install + Configure of XRDP
 
 # XRDP client configuration
 xrdp:
