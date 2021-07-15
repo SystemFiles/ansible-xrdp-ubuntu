@@ -13,4 +13,4 @@
       when: ansible_facts.os_family == "Debian"
 
   roles:
-    - sykesdev.xrdp-install
+    - '.'

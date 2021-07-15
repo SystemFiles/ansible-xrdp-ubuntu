@@ -1,10 +1,9 @@
 ---
 # handlers file for ansible-xrdp-ubuntu
 
-- name: Restart XRDP
-  ansible.builtin.systemd:
-    name: xrdp
-    state: restarted
+- name: Reload UFW
+  community.general.ufw:
+    state: enabled
 
 - name: Restart IPTables
   ansible.builtin.shell: |
@@ -12,7 +11,3 @@
     /etc/init.d/networking restart  
     /etc/init.d/firewall restart
   changed_when: false
-
-- name: Reload UFW
-  community.general.ufw:
-    state: enabled

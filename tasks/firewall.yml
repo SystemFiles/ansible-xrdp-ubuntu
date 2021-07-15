@@ -2,11 +2,11 @@
 # Configure the firewall for XRDP (so you can connect)
 
 - name: FIREWALL | 1.0 | Include tasks for selected firewall manager - 'ufw'
-  ansible.builtin.include_tasks: "ufw.yml"
+  ansible.builtin.import_tasks: "ufw.yml"
   when: firewall.manager == "ufw"
   notify: Reload UFW
 
 - name: FIREWALL | 1.0-a | Include tasks for selected firewall manager - 'iptables'
-  ansible.builtin.include_tasks: "iptables.yml"
+  ansible.builtin.import_tasks: "iptables.yml"
   when: firewall.manager == "iptables"
-  notify: Restart Firewalld
+  notify: Restart IPTables

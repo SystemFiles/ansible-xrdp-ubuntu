@@ -7,16 +7,17 @@ xrdp:
   # 1. gnome
   # 2. xfce
   environment: 'gnome'
-  disable_screen_lock: true # disable automatic screen locking (works with gnome only)
+  disable_screen_lock: true
+  tls_enabled: true
   port: '3389'
 
 # Firewall configuration
 firewall:
   enabled: true
-  manager: ufw # Can be UFW or IP Tables
-  ssh: true # Ensures that SSH connectivity remains even after XRDP is installed on the target
-  ssh_port: 22 # SSH port to use (if other than 22)
-  # Specify IP addresses to whitelist (set to false if any ip can connect)
+  manager: ufw
+  ssh: true
+  ssh_port: 22
+  iptables_backup: ~/iptables.rules.backup
+  enable_whitelist: false
   whitelist:
-    - 10.35.1.0/26
-  iptables_backup: ~/iptables.rules.backup # Where to store the backup of iptables on remote
+    - 127.0.0.1

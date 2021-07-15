@@ -6,11 +6,22 @@
   changed_when: false
   when: firewall.iptables_backup is defined and firewall.iptables_backup |length > 0
 
-- name: IPTABLES | 2.0 | Ensure IPTables logging is set to INFO
+- name: IPTABLES | 2.0 | Ensure the LOGGING chain exists
+  shell: iptables --new-chain LOGGING
+  changed_when: false
+  failed_when: false
+
+- name: IPTABLES | 3.0 | Ensure IPTables packet logging is configured
   ansible.builtin.iptables:
+    chain: LOGGING
+    action: append
+    state: present
+    limit: 2/second
+    limit_burst: 20
+    log_prefix: "IPTABLES:INFO: "
     log_level: info
 
-- name: IPTABLES | 3.0 | Ensure XRDP port is open
+- name: IPTABLES | 4.0 | Ensure XRDP port is open
   ansible.builtin.iptables:
     state: present
     chain: INPUT
@@ -21,7 +32,7 @@
     - tcp
     - udp
 
-- name: IPTABLES | 4.0 | Ensure SSH access remails after XRDP installation
+- name: IPTABLES | 5.0 | Ensure SSH access remails after XRDP installation
   ansible.builtin.iptables:
     state: present
     chain: INPUT

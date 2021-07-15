@@ -1,6 +1,6 @@
 galaxy_info:
   namespace: sykesdev
-  name: xrdp-install
+  name: ansible-xrdp-ubuntu
   version: '1.0.0'
   readme: "README.md"
   authors: 

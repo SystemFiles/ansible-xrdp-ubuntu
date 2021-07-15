@@ -14,6 +14,7 @@
 
 - name: XRDP | 3.0 | Ensure Screen Lock is disabled on Gnome
   ansible.builtin.command: gsettings set org.gnome.desktop.lockdown disable-lock-screen 'true'
+  changed_when: false
   when: xrdp.environment == "gnome" and xrdp.disable_screen_lock
 
 - name: XRDP | 4.0 | Ensure that port is set as configured
@@ -29,6 +30,7 @@
     dest: /etc/xrdp/xrdp.ini
     regexp: '^(;|#)?security_layer'
     line: 'security_layer=tls'
+  when: xrdp.tls_enabled
 
 - name: XRDP | 6.0 | Ensure that crypt_level is set to 'high'
   ansible.builtin.lineinfile:
@@ -53,3 +55,8 @@
   loop:
     - { key: 'LogLevel', line: 'LogLevel=INFO' }
     - { key: 'SyslogLevel', line: 'LogLevel=INFO' }
+
+- name: XRDP | 9.0 | Ensure XRDP configuration is applied by restarting the service
+  ansible.builtin.systemd:
+    name: xrdp
+    state: restarted

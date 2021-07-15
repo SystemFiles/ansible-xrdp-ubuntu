@@ -7,7 +7,7 @@
     state: present
 
 - name: FIREWALL | 2.0 | Ensure UFW is disabled during configuration
-  community.general.apt:
+  community.general.ufw:
     state: disabled
 
 - name: FIREWALL | 3.0 | Ensure XRDP port is open
@@ -16,7 +16,7 @@
     direction: 'in'
     rule: allow
     comment: 'Connectivity through XRDP from ALL'
-  when: firewall.whitelist |length == 0
+  when: not firewall.enable_whitelist
 
 - name: FIREWALL | 3.0-w | Ensure XRDP port is open from specific IPs or subnets
   community.general.ufw:
@@ -25,8 +25,8 @@
     direction: 'in'
     rule: 'allow'
     comment: 'Connectivity through XRDP from {{ item }}'
-  loop: '{{ firewall.whitelist |list }}'
-  when: firewall.whitelist |length > 0
+  loop: '{{ firewall.whitelist | default([]) }}'
+  when: firewall.enable_whitelist
 
 - name: FIREWALL | 4.0 | Ensure that SSH access remains after XRDP install
   community.general.ufw:
