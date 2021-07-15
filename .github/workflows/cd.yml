@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-publish:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout code using git
@@ -16,3 +16,27 @@ jobs:
         uses: robertdebock/galaxy-action@1.1.0
         with:
           galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
+  tag-release:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout code using git
+        uses: actions/checkout@v2
+      - name: Ensure git is configured
+        run: |
+          git config --global user.email "ben@sykesdev.ca"
+          git config --global user.name "Benjamin Sykes"
+      - name: gather version information
+        id: version_info
+        run: echo "::set-output name=ROLE_VERSION::$(cat meta/main.yml | grep '^\s\sversion:' | cut -d':' -f2 | sed 's/\s//g' | sed "s/\'//g")"
+      - name: create tags (semver)
+        run: |
+          ROLE_VERSION=${{ steps.version_info.outputs.ROLE_VERSION }}
+          if [[ -z $(git tag --list | egrep '^$ROLE_VERSION$') ]]; then
+            git tag -a v$ROLE_VERSION -m "($ROLE_VERSION): Release"
+            git tag -a v$(echo $ROLE_VERSION | cut -d'.' -f1).x --force -m "($ROLE_VERSION): Release"
+            git tag -a v$(echo $ROLE_VERSION | cut -d'.' -f1-2).x --force -m "($ROLE_VERSION): Release"
+            git push --tags --force
+          else
+            echo "Not tagging... release version already exists"
+            exit 1
+          fi
