@@ -21,7 +21,7 @@
     log_prefix: "IPTABLES:INFO: "
     log_level: info
 
-- name: IPTABLES | 4.0 | Ensure XRDP port is open
+- name: IPTABLES | 4.0 | Ensure XRDP port is open for connectivity
   ansible.builtin.iptables:
     state: present
     chain: INPUT
