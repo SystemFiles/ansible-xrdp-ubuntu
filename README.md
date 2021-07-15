@@ -38,7 +38,7 @@ You will need to install the ansible `systemfiles.ansible_xrdp_ubuntu` role usin
 
 ```bash
 
-ansible-galaxy role install systemfiles.ansible_xrdp_ubuntu
+ansible-galaxy install systemfiles.ansible_xrdp_ubuntu
 
 ```
 
