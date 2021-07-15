@@ -8,7 +8,8 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)](https://sykesdev.ca/projects/)
-[![Build Status](https://github.com/systemfiles/ansible-xrdp-ubuntu/workflows/test-local/badge.svg)](https://github.com/systemfiles/ansible-xrdp-ubuntu/actions?query=workflow%3Atest-local)
+[![CI](https://github.com/SystemFiles/ansible-xrdp-ubuntu/actions/workflows/ci.yml/badge.svg)](https://github.com/SystemFiles/ansible-xrdp-ubuntu/actions/workflows/ci.yml)
+[![CD](https://github.com/SystemFiles/ansible-xrdp-ubuntu/actions/workflows/cd.yml/badge.svg)](https://github.com/SystemFiles/ansible-xrdp-ubuntu/actions/workflows/cd.yml)
 [![GitHub Issues](https://img.shields.io/github/issues/systemfiles/ansible-xrdp-ubuntu.svg)](https://github.com/SystemFiles/ansible-xrdp-ubuntu/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/systemfiles/ansible-xrdp-ubuntu.svg)](https://github.com/SystemFiles/ansible-xrdp-ubuntu/issues)
 [![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](/LICENSE)
@@ -25,76 +26,42 @@
 
 This role will allow you to configure xrdp from scratch on your Ubuntu 20.04+ server/vm.
 
-## 👷‍♂️ Prerequisites
+## 🧩 Prerequisites
 
-You will need to install the ansible `community.general` collection using `ansible-galaxy`
+Ansible will obviously be required. The recommended way to install is via `pip`.
+
+```bash
+pip3 install ansible
+```
+
+You will need to install the ansible `systemfiles.ansible_xrdp_ubuntu` role using `ansible-galaxy`
 
 ```bash
 
-ansible-galaxy collection install community.general
+ansible-galaxy role install systemfiles.ansible_xrdp_ubuntu
 
 ```
 
-## 🚨 Required vars
+## 🚀 Usage
 
-- `xrdp_users` : Specifies a `list` of user `objects` for users that should be configured for use with XRDP
+To use this role, clone this repository
 
-> Has the following variables:
-
-> - name: username of this user 
-> - groups: list of groups this user is a part of...(note: add 'wheel' for sudo user)
-> - has_home: create a home directory for the user (true or false)
-
-## 🤔 Optional vars
-
-- `openvpn` : Specifies an `object` with details pertaining to the optional install + configure of openvpn connection (headless) on the host
-
-Has the following required parameters
-
-``` yml
-
-openvpn:
-  enabled: true
-  config: /path/to/config/file.ovpn
-
+```bash
+git clone https://github.com/SystemFiles/ansible-xrdp-ubuntu.git
 ```
 
-> Add this to your playbook as vars
+Then, create a copy of the example configuration and inventory files.
 
-- `torguard` : Specifies an `object` that contains details about optional install and configuration of the TorGuard VPN client (GUI)
-
-Config object should look like this:
-
-``` yml
-
-torguard:
-      enabled: true
-      version: latest
-
+```bash
+cp ./example.config.yml ./config.yml
+cp ./example.inventory.yml ./inventory.yml
 ```
 
-> Add this to your playbook as vars
-> **NOTE**: Also, due to the nature of the torguard client, you will unfortunatly have to login, run, and then configure torguard manually on your own.
+Customize the configuration to fit your needs and enter your hosts in the `inventory.yml` file. Then, execute the play.
 
-## 🛠 Example Playbook
+```bash
 
-Below is an example using Torguard and defaults
-
-```yml
-
----
-# Playbook.yml
-
-- hosts: all
-  become: true
-  vars:
-    xrdp_users:
-      - {name: "ben", groups: "sudo", has_home: true}
-    torguard:
-      enabled: true
-      version: latest
-  roles:
-    - ansible-xrdp-ubuntu
+ansible-playbook main.yml
 
 ```
 
