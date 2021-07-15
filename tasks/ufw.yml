@@ -1,0 +1,37 @@
+---
+# Configure firewall access using UFW
+
+- name: FIREWALL | 1.0 | Ensure UFW is installed
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: FIREWALL | 2.0 | Ensure UFW is disabled during configuration
+  community.general.ufw:
+    state: disabled
+
+- name: FIREWALL | 3.0 | Ensure XRDP port is open
+  community.general.ufw:
+    to_port: '{{ xrdp.port }}'
+    direction: 'in'
+    rule: allow
+    comment: 'Connectivity through XRDP from ALL'
+  when: not firewall.enable_whitelist
+
+- name: FIREWALL | 3.0-w | Ensure XRDP port is open from specific IPs or subnets
+  community.general.ufw:
+    src: '{{ item }}'
+    to_port: '{{ xrdp.port }}'
+    direction: 'in'
+    rule: 'allow'
+    comment: 'Connectivity through XRDP from {{ item }}'
+  loop: '{{ firewall.whitelist | default([]) }}'
+  when: firewall.enable_whitelist
+
+- name: FIREWALL | 4.0 | Ensure that SSH access remains after XRDP install
+  community.general.ufw:
+    to_port: '22'
+    direction: 'in'
+    rule: 'allow'
+    comment: 'OpenSSH connectivity from ALL'
+  when: firewall.ssh

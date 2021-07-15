@@ -1,2 +1,11 @@
 ---
 # handlers file for ansible-xrdp-ubuntu
+
+- name: Reload UFW
+  community.general.ufw:
+    state: enabled
+
+- name: Restart IPTables
+  ansible.builtin.shell: |
+    /etc/init.d/network-manager restart
+  changed_when: false

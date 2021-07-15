@@ -1,8 +1,20 @@
 galaxy_info:
-  author: Benjamin Sykes (SystemFiles)
+  namespace: sykesdev
+  name: ansible-xrdp-ubuntu
+  version: '1.0.0'
+  readme: "README.md"
+  authors: 
+    - "Benjamin Sykes<ben@sykesdev.ca>"
+  license_file: LICENSE
+  repository: https://github.com/SystemFiles/ansible-xrdp-ubuntu
   description: Install and configure XRDP on Ubuntu with xfce or gnome
-  company: Sykes Dev
+  company: Sykesdev
   license: Apache-2.0
-  min_ansible_version: 2.5
-  galaxy_tags: []
+  min_ansible_version: '2.10'
+  galaxy_tags:
+    - xrdp
+    - remote-desktop
+    - linux
+    - gnome
+    - xfce
 dependencies: []
