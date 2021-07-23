@@ -10,10 +10,12 @@ xrdp:
   disable_screen_lock: true
   tls_enabled: true
   port: '3389'
+  colord_bypass: true
+  colord_group: xgui
 
 # Firewall configuration
 firewall:
-  enabled: true
+  enabled: false
   manager: ufw
   ssh: true
   ssh_port: 22

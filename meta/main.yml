@@ -1,7 +1,7 @@
 galaxy_info:
   namespace: sykesdev
   name: ansible-xrdp-ubuntu
-  version: '1.0.0'
+  version: '1.0.1'
   readme: "README.md"
   authors: 
     - "Benjamin Sykes<ben@sykesdev.ca>"
