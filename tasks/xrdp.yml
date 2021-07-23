@@ -59,11 +59,11 @@
 - name: XRDP | 9.0 | Patch Polkit
   block:
     - name: XRDP | 9.1 | Gather PolKit version for patch params
-      ansible.builtin.shell: pkaction --version
+      ansible.builtin.shell: pkaction --version | rev | cut -d' ' -f1 | rev
       changed_when: false
       register: pk_version
       when: xrdp.colord_bypass
-
+      
     - name: XRDP | 9.2 | Ensure that colord patch is applied to the system - 'PolKit v0.106-'
       ansible.builtin.template:
         src: 45-allow-colord.j2

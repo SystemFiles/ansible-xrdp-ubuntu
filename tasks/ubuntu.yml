@@ -19,7 +19,8 @@
   when: xrdp.environment == "xfce"
 
 - name: UBUNTU | 4.0 | Initiate configuration of XRDP server
-  ansible.builtin.include_tasks: "xrdp.yml"
+  ansible.builtin.import_tasks: "xrdp.yml"
+  notify: Restart XRDP
 
 - name: UBUNTU | 4.0 | Include firewall config
   ansible.builtin.include_tasks: "firewall.yml"

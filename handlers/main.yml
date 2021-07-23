@@ -1,6 +1,11 @@
 ---
 # handlers file for ansible-xrdp-ubuntu
 
+- name: Restart XRDP
+  ansible.builtin.systemd:
+    name: xrdp
+    state: restarted
+
 - name: Reload UFW
   community.general.ufw:
     state: enabled
