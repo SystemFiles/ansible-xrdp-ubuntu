@@ -56,12 +56,38 @@
     - { key: 'LogLevel', line: 'LogLevel=INFO' }
     - { key: 'SyslogLevel', line: 'LogLevel=INFO' }
 
-- name: XRDP | 9.0 | Ensure XRDP configuration is applied by restarting the service
+- name: XRDP | 9.0 | Patch Polkit
+  block:
+    - name: XRDP | 9.1 | Gather PolKit version for patch params
+      ansible.builtin.shell: pkaction --version | rev | cut -d' ' -f1 | rev
+      changed_when: false
+      register: pk_version
+      when: xrdp.colord_bypass
+      
+    - name: XRDP | 9.2 | Ensure that colord patch is applied to the system - 'PolKit v0.106-'
+      ansible.builtin.template:
+        src: 45-allow-colord.j2
+        dest: /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
+        group: root
+        owner: root
+        mode: 0751
+      when: xrdp.colord_bypass and pk_version.stdout is version('0.106', '<')
+
+    - name: XRDP | 9.2 | Ensure that colord patch is applied to the system - 'PolKit v0.106+'
+      ansible.builtin.template:
+        src: 45-allow-colord.j2
+        dest: /etc/polkit-1/localauthority/50-local.d/45-allow-colord.conf
+        group: root
+        owner: root
+        mode: 0751
+      when: xrdp.colord_bypass and pk_version.stdout is version('0.106', '>=')
+
+- name: XRDP | 11.0 | Ensure XRDP configuration is applied by restarting the service
   ansible.builtin.systemd:
     name: xrdp
     state: restarted
 
-- name: XRDP | 10.0 | Ensure XRDP user is added to the ssl-certs group
+- name: XRDP | 12.0 | Ensure XRDP user is added to the ssl-certs group
   ansible.builtin.user:
     name: xrdp
     groups: ssl-cert

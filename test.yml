@@ -1,0 +1,16 @@
+---
+- hosts: xrdp
+  become: true
+
+  # Generic pre-tasks
+  pre_tasks:
+    - name: PRE TASKS | 1.0 | Load variables from provided configuration file
+      ansible.builtin.include_vars: config.yml
+    - name: PRE TASKS | 2.0 | Ensure Apt Cache is up-to-date
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_facts.os_family == "Debian"
+
+  roles:
+    - '.'

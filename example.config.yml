@@ -10,10 +10,16 @@ xrdp:
   disable_screen_lock: true # disable automatic screen locking (works with gnome only)
   port: '3389'
   tls_enabled: true
+  # Colord sometimes prevents some applications from starting properly without authenticating first.
+  # Set colord_bypass to true and set an allowed group of users who can RDP to the system to bypass colord authentation
+  # This is a problem detailed here: https://askubuntu.com/questions/1245020/xrdp-on-ubuntu-20-04
+  # Note: this problem seems to be specific to the gnome desktop environment
+  colord_bypass: true
+  colord_group: xgui
 
 # Firewall configuration
 firewall:
-  enabled: true
+  enabled: false
   manager: ufw # Can be 'ufw' or 'iptables'
   ssh: true # Ensures that SSH connectivity remains even after XRDP is installed on the target
   ssh_port: 22 # SSH port to use (if other than 22)
